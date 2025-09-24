@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Pizza Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Mini Pizza Shop</h1>
+
+    {% if message %}
+        <p style="color: red">{{ message }}</p>
+    {% endif %}
+
+    <form method="POST">
+        <label for="customerName">Customer Name:</label>
+        <input type="text" id="customerName" name="customerName" value="{{ customer_name }}"><br><br>
+
+        <label for="pizzaSize">Pizza Size:</label>
+        <select id="pizzaSize" name="pizzaSize">
+            <option value="Small" {% if selected_size == 'Small' %}selected{% endif %}>Small</option>
+            <option value="Medium" {% if selected_size == 'Medium' %}selected{% endif %}>Medium</option>
+            <option value="Large" {% if selected_size == 'Large' %}selected{% endif %}>Large</option>
+        </select><br><br>
+
+        <label>Toppings:</label><br>
+        {% for t_name in shop.available_toppings.keys() %}
+            <input type="checkbox" name="topping" value="{{ t_name }}"
+                   {% if t_name in topping_names_selected %}checked{% endif %}>
+            {{ t_name }}
+            <img src="{{ url_for('static', filename=shop.available_toppings[t_name].img) }}" width="30" height="30" alt="{{ t_name }}"><br>
+        {% endfor %}
+        <br><br>
+
+        <button type="submit">Add Pizza</button>
+    </form>
+
+    {% if pizzas %}
+        <h3>Order Summary for {{ customer_name }}</h3>
+        <div class="pizza-container">
+            {% for p in pizzas %}
+                <div class="single-pizza">
+                    <img src="{{ url_for('static', filename='images/pizza_base.png') }}" class="pizza-base" alt="Pizza Base">
+                    {% for t in p.toppings %}
+                        <img src="{{ url_for('static', filename=t.img) }}" class="topping-img" alt="{{ t.name }}">
+                    {% endfor %}
+                        <p>{{ p.size }} Pizza - Rp{{ p.price() }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <br>
+        <br>
+        <p><strong>Total: Rp{{ total_price }}</strong></p>
+    {% endif %}
+</body>
+</html>

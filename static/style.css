@@ -1,0 +1,70 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #fff8f0;
+    padding: 20px;
+}
+h1 { color: #d35400; }
+
+form {
+    background: #fff3e6;
+    padding: 15px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+}
+
+button {
+    background: #e67e22;
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    margin: 5px 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button:hover { background: #d35400; }
+
+.pizza-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.single-pizza {
+    position: relative;
+    width: 200px;
+    height: 240px; /* Increased to accommodate text */
+    text-align: center;
+    background: #fff3e6;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+}
+
+.pizza-base {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    z-index: 1;
+}
+
+.topping-img {
+    position: absolute;
+    top: 40%;
+    left: 45%;
+    width: 120px; /* Match pizza-base size */
+    height: 120px; /* Match pizza-base size */
+    z-index: 2;
+    pointer-events: none;
+    animation: fadeIn 0.5s ease-in;
+    transform: translate(-50%, -50%); /* Centers the image */
+}
+
+.single-pizza p {
+    margin-top: 205px; /* Move text below image */
+    font-weight: bold;
+}
